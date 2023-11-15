@@ -1,6 +1,8 @@
 package com.example.therapistapp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -16,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public DatabaseHelper(Context context)
     {
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, 2);
     }
 
     @Override
@@ -25,13 +27,67 @@ public class DatabaseHelper extends SQLiteOpenHelper
         //Create Users Table
         //istherapist 0 = false, 1 = true
         sqLiteDatabase.execSQL("CREATE TABLE " + USERS_TABLE_NAME + " (username PRIMARY KEY NOT NULL, fullname TEXT, password TEXT, istherapist INTEGER NOT NULL);");
+        sqLiteDatabase.execSQL("CREATE TABLE " + THERAPIST_TABLE_NAME + " (username PRIMARY KEY NOT NULL, gender TEXT, age INTEGER, profession TEXT, location TEXT);");
         sqLiteDatabase.execSQL("CREATE TABLE " + REVIEWS_TABLE_NAME + " (therapistusername PRIMARY KEY NOT NULL, reviewerusername TEXT, rating INTEGER, comments TEXT);");
+        sqLiteDatabase.execSQL("CREATE TABLE " + PROFESSION_TABLE_NAME + " (professionname PRIMARY KEY NOT NULL);");
 
+        //create a dummy user
+        sqLiteDatabase.execSQL("INSERT INTO Users VALUES('admin','admin','admin','0');");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1)
     {
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + USERS_TABLE_NAME + ";");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + THERAPIST_TABLE_NAME + ";");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + REVIEWS_TABLE_NAME + ";");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + PROFESSION_TABLE_NAME + ";");
+        onCreate(sqLiteDatabase);
+    }
 
+    public void createNewUser(User user)
+    {
+        int isTherapist = 0;
+        if(user.isTherapist()) isTherapist = 1;
+
+        String sqlExecStatement = "INSERT INTO " + USERS_TABLE_NAME + " VALUES('USR','PASS','FULLNAME','ISTHERAPIST');"
+                .replace("USR", user.getUsername())
+                .replace("PASS", user.getPassword())
+                .replace("FULLNAME", user.getFullName())
+                .replace("ISTHERAPIST", isTherapist + "");
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.execSQL(sqlExecStatement);
+        sqLiteDatabase.close();
+    }
+
+    public boolean passwordMatches(String username, String password)
+    {
+        return false;
+    }
+
+    @SuppressLint("Range")
+    public boolean usernameExists(String usernametoCompare)
+    {
+        String selectQuery = "SELECT * FROM " + USERS_TABLE_NAME + " ORDER BY username;";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        String username;
+
+        if(cursor.moveToFirst())
+        {
+            do
+            {
+                username = cursor.getString(cursor.getColumnIndex("username"));
+                if(usernametoCompare.equalsIgnoreCase(username))
+                {
+                    db.close();
+                    return true;
+                }
+            }
+            while(cursor.moveToNext());
+        }
+
+        db.close();
+        return false;
     }
 }
