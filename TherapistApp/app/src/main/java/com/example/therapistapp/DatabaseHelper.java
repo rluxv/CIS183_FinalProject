@@ -32,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         sqLiteDatabase.execSQL("CREATE TABLE " + PROFESSION_TABLE_NAME + " (professionname PRIMARY KEY NOT NULL);");
 
         //create a dummy user
-        sqLiteDatabase.execSQL("INSERT INTO Users VALUES('admin','admin','admin','0');");
+        sqLiteDatabase.execSQL("INSERT INTO USRSTABLENAME VALUES('admin','admin','admin','0');".replace("USRSTABLENAME", USERS_TABLE_NAME));
     }
 
     @Override
