@@ -18,6 +18,7 @@ public class UserRegistration extends AppCompatActivity
     EditText et_registration_username, et_registration_password, et_registration_fullname;
     Switch sw_registration_istherapist;
     DatabaseHelper database;
+    private boolean registeringTherapist;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -30,9 +31,11 @@ public class UserRegistration extends AppCompatActivity
         et_registration_password = findViewById(R.id.et_registration_password);
         sw_registration_istherapist = findViewById(R.id.sw_registration_istherapist);
         database =  new DatabaseHelper(this);
+        registeringTherapist = false;
 
         registerButtonPress();
         cancelButtonPress();
+        therapistSwitchPressEvent();
     }
 
     public void registerButtonPress()
@@ -61,6 +64,33 @@ public class UserRegistration extends AppCompatActivity
                 finish();
             }
         });
+    }
+
+    public void therapistSwitchPressEvent()
+    {
+        sw_registration_istherapist.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                if(sw_registration_istherapist.isChecked())
+                {
+                    registeringTherapist = true;
+                    //
+                    updateView();
+                }
+                else
+                {
+                    registeringTherapist = false;
+                    updateView();
+                }
+            }
+        });
+    }
+
+    public void updateView()
+    {
+
     }
 
     public boolean canRegister()
@@ -102,5 +132,10 @@ public class UserRegistration extends AppCompatActivity
         User user = new User(username, password, isTherapist, fullname);
         database.createNewUser(user);
         finish();
+    }
+
+    public void registerTherapist()
+    {
+        
     }
 }
