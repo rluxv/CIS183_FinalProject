@@ -60,6 +60,19 @@ public class DatabaseHelper extends SQLiteOpenHelper
         sqLiteDatabase.close();
     }
 
+    public void createNewTherapist(Therapist therapist)
+    {
+        String sqlExecStatement = "INSERT INTO " + THERAPIST_TABLE_NAME + " VALUES('USR','GENDER','AGE','PROFESSION','LOCATION');"
+                .replace("USR", therapist.getUser().getUsername())
+                .replace("GENDER", therapist.getGender())
+                .replace("AGE", therapist.getAge() + "")
+                .replace("PROFESSION",  therapist.getProfession())
+                .replace("LOCATION", therapist.getLocation());
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.execSQL(sqlExecStatement);
+        sqLiteDatabase.close();
+    }
+
     public boolean passwordMatches(String username, String password)
     {
         return false;
