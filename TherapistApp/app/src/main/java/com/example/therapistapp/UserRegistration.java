@@ -18,6 +18,11 @@ public class UserRegistration extends AppCompatActivity
     EditText et_registration_username, et_registration_password, et_registration_fullname;
     Switch sw_registration_istherapist;
     DatabaseHelper database;
+
+    EditText et_registration_therapistage;
+    EditText et_registration_therapistgender;
+    EditText et_registration_therapistprofession;
+    EditText et_registration_therapistlocation;
     private boolean registeringTherapist;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -29,6 +34,11 @@ public class UserRegistration extends AppCompatActivity
         et_registration_fullname = findViewById(R.id.et_registration_fullname);
         et_registration_username = findViewById(R.id.et_registration_username);
         et_registration_password = findViewById(R.id.et_registration_password);
+        et_registration_therapistage = findViewById(R.id.et_registration_therapistage);
+        et_registration_therapistgender = findViewById(R.id.et_registration_therapistgender);
+        et_registration_therapistprofession = findViewById(R.id.et_registration_therapistprofession);
+        et_registration_therapistlocation = findViewById(R.id.et_registration_therapistlocation);
+
         sw_registration_istherapist = findViewById(R.id.sw_registration_istherapist);
         database =  new DatabaseHelper(this);
         registeringTherapist = false;
@@ -131,11 +141,15 @@ public class UserRegistration extends AppCompatActivity
         boolean isTherapist = false; //this will be implemented later on
         User user = new User(username, password, isTherapist, fullname);
         database.createNewUser(user);
+        if(registeringTherapist)
+        {
+            int therapistAge = Integer.parseInt(et_registration_therapistage.getText().toString());
+            String therapistProfession = et_registration_therapistprofession.getText().toString();
+            String therapistLocation = et_registration_therapistlocation.getText().toString();
+            String therapistGender = et_registration_therapistgender.getText().toString();
+            Therapist therapist = new Therapist(user, therapistGender, therapistAge, therapistProfession, therapistLocation);
+            database.createNewTherapist(therapist);
+        }
         finish();
-    }
-
-    public void registerTherapist()
-    {
-        
     }
 }

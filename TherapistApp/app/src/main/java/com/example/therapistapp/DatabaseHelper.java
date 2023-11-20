@@ -75,6 +75,10 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public boolean passwordMatches(String username, String password)
     {
+        String selectQuery = "SELECT * FROM " + USERS_TABLE_NAME + " WHERE username = " + username + ";";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
         return false;
     }
 
