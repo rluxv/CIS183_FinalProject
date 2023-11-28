@@ -72,14 +72,36 @@ public class DatabaseHelper extends SQLiteOpenHelper
         sqLiteDatabase.execSQL(sqlExecStatement);
         sqLiteDatabase.close();
     }
-
+    @SuppressLint("Range")
     public boolean passwordMatches(String username, String password)
     {
-        String selectQuery = "SELECT * FROM " + USERS_TABLE_NAME + " WHERE username = " + username + ";";
+        String selectQuery = "SELECT * FROM " + USERS_TABLE_NAME + " WHERE username = '" + username + "';";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst())
+        {
+            String dbPassword = cursor.getString(cursor.getColumnIndex("password"));
+            if(password.equals(dbPassword))
+            {
+                return true;
+            }
+        }
         return false;
+    }
+    @SuppressLint("Range")
+    public String getFullName(String username)
+    {
+        String selectQuery = "SELECT * FROM " + USERS_TABLE_NAME + " WHERE username = '" + username + "';";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst())
+        {
+            String fullname = cursor.getString(cursor.getColumnIndex("fullname"));
+            return fullname;
+        }
+        return null;
     }
 
     @SuppressLint("Range")

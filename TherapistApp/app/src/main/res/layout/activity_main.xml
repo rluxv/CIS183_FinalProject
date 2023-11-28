@@ -4,24 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#00C4FF"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btn_main_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
-        android:text="register"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+        android:id="@+id/tvbtn_main_login"
+        android:layout_width="255dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="400dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/rounded_button_background"
+        android:text="LOGIN"
+        android:textAlignment="center"
+        android:textColor="#5FD8FF"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tvbtn_main_register"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_main_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Don't have an account? Sign Up"
-        tools:layout_editor_absoluteX="108dp"
-        tools:layout_editor_absoluteY="696dp" />
+        android:id="@+id/tvbtn_main_register"
+        android:layout_width="255dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="247dp"
+        android:background="@drawable/rounded_button_background"
+        android:text="SIGN UP"
+        android:textAlignment="center"
+        android:textColor="#5FD8FF"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvbtn_main_login" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

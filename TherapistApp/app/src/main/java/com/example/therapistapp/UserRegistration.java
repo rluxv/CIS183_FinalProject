@@ -14,7 +14,7 @@ import android.widget.TextView;
 public class UserRegistration extends AppCompatActivity
 {
 
-    ImageView imgbtn_registration_cancelregister;
+    TextView tvbtn_registration_cancelregister;
     EditText et_registration_username, et_registration_password, et_registration_fullname;
     Switch sw_registration_istherapist;
     DatabaseHelper database;
@@ -32,7 +32,7 @@ public class UserRegistration extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_registration);
-        imgbtn_registration_cancelregister = findViewById(R.id.imgbtn_registration_cancelregister);
+        tvbtn_registration_cancelregister = findViewById(R.id.tvbtn_registration_cancelregister);
         et_registration_fullname = findViewById(R.id.et_registration_fullname);
         et_registration_username = findViewById(R.id.et_registration_username);
         et_registration_password = findViewById(R.id.et_registration_password);
@@ -69,7 +69,7 @@ public class UserRegistration extends AppCompatActivity
 
     public void cancelButtonPress()
     {
-        imgbtn_registration_cancelregister.setOnClickListener(new View.OnClickListener()
+        tvbtn_registration_cancelregister.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
