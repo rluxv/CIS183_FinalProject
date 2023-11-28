@@ -2,6 +2,7 @@ package com.example.therapistapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,7 +14,6 @@ import android.widget.TextView;
 public class UserRegistration extends AppCompatActivity
 {
 
-    ImageView imgbtn_registration_register;
     ImageView imgbtn_registration_cancelregister;
     EditText et_registration_username, et_registration_password, et_registration_fullname;
     Switch sw_registration_istherapist;
@@ -23,13 +23,15 @@ public class UserRegistration extends AppCompatActivity
     EditText et_registration_therapistgender;
     EditText et_registration_therapistprofession;
     EditText et_registration_therapistlocation;
+
+    TextView tvbtn_registration_register;
+    Intent int_homepage;
     private boolean registeringTherapist;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_registration);
-        imgbtn_registration_register = findViewById(R.id.imgbtn_registration_register);
         imgbtn_registration_cancelregister = findViewById(R.id.imgbtn_registration_cancelregister);
         et_registration_fullname = findViewById(R.id.et_registration_fullname);
         et_registration_username = findViewById(R.id.et_registration_username);
@@ -38,7 +40,8 @@ public class UserRegistration extends AppCompatActivity
         et_registration_therapistgender = findViewById(R.id.et_registration_therapistgender);
         et_registration_therapistprofession = findViewById(R.id.et_registration_therapistprofession);
         et_registration_therapistlocation = findViewById(R.id.et_registration_therapistlocation);
-
+        tvbtn_registration_register = findViewById(R.id.tvbtn_registration_register);
+        int_homepage = new Intent(UserRegistration.this, HomepageActivity.class);
         sw_registration_istherapist = findViewById(R.id.sw_registration_istherapist);
         database =  new DatabaseHelper(this);
         registeringTherapist = false;
@@ -50,7 +53,7 @@ public class UserRegistration extends AppCompatActivity
 
     public void registerButtonPress()
     {
-        imgbtn_registration_register.setOnClickListener(new View.OnClickListener()
+        tvbtn_registration_register.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
@@ -150,6 +153,8 @@ public class UserRegistration extends AppCompatActivity
             Therapist therapist = new Therapist(user, therapistGender, therapistAge, therapistProfession, therapistLocation);
             database.createNewTherapist(therapist);
         }
-        finish();
+        Session.username = username;
+        Session.fullname = fullname;
+        startActivity(int_homepage);
     }
 }
