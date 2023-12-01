@@ -9,6 +9,8 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
 public class DatabaseHelper extends SQLiteOpenHelper
 {
     public static final String DATABASE_NAME = "TherapistDB";
@@ -134,6 +136,26 @@ public class DatabaseHelper extends SQLiteOpenHelper
         }
         db.close();
         return false;
+    }
+
+    @SuppressLint("Range")
+    public ArrayList<String> getTherapyTypes()
+    {
+        ArrayList<String> list = new ArrayList<String>();
+        String selectQuery = "SELECT * FROM " + THERAPIST_TABLE_NAME + ";";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst())
+        {
+            do
+            {
+                list.add(cursor.getString(cursor.getColumnIndex("profession")));
+            }
+            while(cursor.moveToNext());
+        }
+        db.close();
+
+        return list;
     }
     @SuppressLint("Range")
     public String getFullName(String username)

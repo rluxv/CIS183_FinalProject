@@ -34,7 +34,7 @@ public class HomepageActivity extends AppCompatActivity
         tv_username.setText(Session.user.getUsername());
         tv_fullname.setText(Session.fullname);
         dbHelper = new DatabaseHelper(this);
-        int_findtherapistactivity = new Intent(HomepageActivity.this, FindTherapist.class);
+        int_findtherapistactivity = new Intent(HomepageActivity.this, ChooseTherapyActivity.class);
         int_mainactivity = new Intent(HomepageActivity.this, MainActivity.class);
         int_updateuseractivity = new Intent(HomepageActivity.this, UpdateUserActivity.class);
         Log.d("test", "test");
