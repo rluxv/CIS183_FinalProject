@@ -19,7 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public DatabaseHelper(Context context)
     {
-        super(context, DATABASE_NAME, null, 4);
+        super(context, DATABASE_NAME, null, 6);
     }
 
     @Override
@@ -58,6 +58,43 @@ public class DatabaseHelper extends SQLiteOpenHelper
                 .replace("ISTHERAPIST", isTherapist + "");
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         sqLiteDatabase.execSQL(sqlExecStatement);
+        sqLiteDatabase.close();
+    }
+
+    public void updateUser(User user)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String updateSQL = "UPDATE TABLENAME SET fullname = 'FULLNAME', password = 'PASSWD' WHERE username = 'USRNME';"
+                .replace("TABLENAME", USERS_TABLE_NAME)
+                .replace("FULLNAME", user.getFullName())
+                .replace("USRNME", user.getUsername())
+                .replace("PASSWD", user.getPassword());
+        db.execSQL(updateSQL);
+        db.close();
+    }
+
+    public void updateTherapist(Therapist therapist, String username)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String updateSQL = "UPDATE TABLENAME SET age = 'THERAG', gender = 'GNDR', profession = 'PROFS', location = 'LCTN' WHERE username = 'USRNME';"
+                .replace("TABLENAME", THERAPIST_TABLE_NAME)
+                .replace("USRNME", username)
+                .replace("THERAG", therapist.getAge() + "")
+                .replace("GNDR", therapist.getGender())
+                .replace("PROFS", therapist.getProfession())
+                .replace("LCTN", therapist.getLocation());
+        db.execSQL(updateSQL);
+        db.close();
+    }
+
+    public void deleteUser(User user)
+    {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.execSQL("DELETE FROM " + USERS_TABLE_NAME + " WHERE username = '" + user.getUsername() + "';");
+        if(user.isTherapist())
+        {
+            sqLiteDatabase.execSQL("DELETE FROM " + THERAPIST_TABLE_NAME + " WHERE username = '" + user.getUsername() + "';");
+        }
         sqLiteDatabase.close();
     }
 
