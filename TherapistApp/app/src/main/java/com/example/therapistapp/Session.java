@@ -4,4 +4,5 @@ public class Session
 {
     static String username;
     static String fullname;
+    static User user;
 }

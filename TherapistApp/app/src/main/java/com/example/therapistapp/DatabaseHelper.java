@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -18,7 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public DatabaseHelper(Context context)
     {
-        super(context, DATABASE_NAME, null, 2);
+        super(context, DATABASE_NAME, null, 4);
     }
 
     @Override
@@ -50,7 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         int isTherapist = 0;
         if(user.isTherapist()) isTherapist = 1;
 
-        String sqlExecStatement = "INSERT INTO " + USERS_TABLE_NAME + " VALUES('USR','PASS','FULLNAME','ISTHERAPIST');"
+        String sqlExecStatement = "INSERT INTO " + USERS_TABLE_NAME + " VALUES('USR','FULLNAME','PASS','ISTHERAPIST');"
                 .replace("USR", user.getUsername())
                 .replace("PASS", user.getPassword())
                 .replace("FULLNAME", user.getFullName())
@@ -84,9 +85,17 @@ public class DatabaseHelper extends SQLiteOpenHelper
             String dbPassword = cursor.getString(cursor.getColumnIndex("password"));
             if(password.equals(dbPassword))
             {
+                Log.d("Usernameandpasswodmatch", "yes");
+                db.close();
                 return true;
             }
+            else
+            {
+                Log.d("Usernameandpasswodmatch", "no");
+                Log.d("pass entered " + password, "db password " + dbPassword);
+            }
         }
+        db.close();
         return false;
     }
     @SuppressLint("Range")
@@ -99,11 +108,58 @@ public class DatabaseHelper extends SQLiteOpenHelper
         if(cursor.moveToFirst())
         {
             String fullname = cursor.getString(cursor.getColumnIndex("fullname"));
+            db.close();
             return fullname;
         }
+        db.close();
         return null;
     }
+    @SuppressLint("Range")
+    public User getUser(String username)
+    {
+        User user = new User();
+        String selectQuery = "SELECT * FROM " + USERS_TABLE_NAME + " WHERE username = '" + username + "';";
 
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst())
+        {
+            String fullname = cursor.getString(cursor.getColumnIndex("fullname"));
+            String uname = cursor.getString(cursor.getColumnIndex("username"));
+            String password = cursor.getString(cursor.getColumnIndex("password"));
+            int istherapistint = cursor.getInt(cursor.getColumnIndex("istherapist"));
+            boolean isTherapist = false;
+            if(istherapistint == 1) isTherapist = true;
+            user = new User(uname, password, isTherapist, fullname);
+            db.close();
+            return user;
+        }
+        db.close();
+        return user;
+    }
+
+    @SuppressLint("Range")
+    public Therapist getTherapist(String username)
+    {
+        //        sqLiteDatabase.execSQL("CREATE TABLE " + THERAPIST_TABLE_NAME + " (username PRIMARY KEY NOT NULL, gender TEXT, age INTEGER, profession TEXT, location TEXT);");
+        Therapist therapist = new Therapist();
+        String selectQuery = "SELECT * FROM " + THERAPIST_TABLE_NAME + " WHERE username = '" + username + "';";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst())
+        {
+            String gender = cursor.getString(cursor.getColumnIndex("gender"));
+            User u = getUser(username);
+            int age = cursor.getInt(cursor.getColumnIndex("age"));
+            String profession = cursor.getString(cursor.getColumnIndex("profession"));
+            String location = cursor.getString(cursor.getColumnIndex("location"));
+            therapist = new Therapist(u, gender, age, profession, location);
+            db.close();
+            return therapist;
+        }
+        return therapist;
+    }
     @SuppressLint("Range")
     public boolean usernameExists(String usernametoCompare)
     {

@@ -141,8 +141,10 @@ public class UserRegistration extends AppCompatActivity
         String username = et_registration_username.getText().toString();
         String password = et_registration_password.getText().toString();
         String fullname = et_registration_fullname.getText().toString();
-        boolean isTherapist = false; //this will be implemented later on
-        User user = new User(username, password, isTherapist, fullname);
+        boolean isTherapist = registeringTherapist; //this will be implemented later on
+        User user = new User(username, password, registeringTherapist, fullname);
+        user.setPassword(password);
+        Log.d(user.getPassword(), " UserPassword");
         database.createNewUser(user);
         if(registeringTherapist)
         {
@@ -153,6 +155,7 @@ public class UserRegistration extends AppCompatActivity
             Therapist therapist = new Therapist(user, therapistGender, therapistAge, therapistProfession, therapistLocation);
             database.createNewTherapist(therapist);
         }
+        Session.user = database.getUser(username);
         Session.username = username;
         Session.fullname = fullname;
         startActivity(int_homepage);

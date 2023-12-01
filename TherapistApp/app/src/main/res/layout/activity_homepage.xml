@@ -4,16 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00C4FF"
+    android:background="@drawable/coloredbg"
+    android:backgroundTintMode="src_over"
     tools:context=".HomepageActivity">
 
     <TextView
         android:id="@+id/tv_homepage_fullname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="51dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="28dp"
         android:text="Firstname Lastname"
+        android:textAlignment="textStart"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,12 +25,13 @@
         android:id="@+id/tv_homepage_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="13dp"
         android:text="username"
+        android:textAlignment="textStart"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_homepage_fullname"
         app:layout_constraintTop_toBottomOf="@+id/tv_homepage_fullname" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

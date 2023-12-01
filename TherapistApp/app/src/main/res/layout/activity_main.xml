@@ -4,15 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00C4FF"
+    android:background="@drawable/coloredbg"
     tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="173dp"
+        android:layout_height="217dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        app:layout_constraintEnd_toEndOf="@+id/imageView3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:srcCompat="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/tvbtn_main_register"
+        android:layout_width="251dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="65dp"
+        android:background="@drawable/rounded_button_background"
+        android:text="SIGN UP"
+        android:textAlignment="center"
+        android:textColor="#5FD8FF"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvbtn_main_login" />
 
     <TextView
         android:id="@+id/tvbtn_main_login"
-        android:layout_width="255dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="400dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="254dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="13dp"
         android:background="@drawable/rounded_button_background"
         android:text="LOGIN"
         android:textAlignment="center"
@@ -21,21 +47,40 @@
         app:layout_constraintBottom_toTopOf="@+id/tvbtn_main_register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
-    <TextView
-        android:id="@+id/tvbtn_main_register"
-        android:layout_width="255dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="247dp"
-        android:background="@drawable/rounded_button_background"
-        android:text="SIGN UP"
-        android:textAlignment="center"
-        android:textColor="#5FD8FF"
-        android:textStyle="bold"
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="188dp"
+        android:layout_height="91dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="13dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/theralink" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="63dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvbtn_main_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:srcCompat="@drawable/helpinghand" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="170dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvbtn_main_login" />
+        app:layout_constraintTop_toBottomOf="@+id/tvbtn_main_register"
+        app:srcCompat="@drawable/applegoogle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

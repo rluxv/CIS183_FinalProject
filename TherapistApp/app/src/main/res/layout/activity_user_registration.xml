@@ -4,58 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00C4FF"
-    tools:context=".UserRegistration">
-
-    <EditText
-        android:id="@+id/et_registration_therapistage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="1dp"
-        android:background="@drawable/rounded_edittext_background"
-        android:ems="10"
-        android:hint="Therapist Age"
-        android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/et_registration_therapistgender"
-        app:layout_constraintStart_toStartOf="@+id/tvbtn_registration_register"
-        app:layout_constraintTop_toBottomOf="@+id/sw_registration_istherapist" />
-
-    <Switch
-        android:id="@+id/sw_registration_istherapist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="Are you a therapist?"
-        app:layout_constraintBottom_toTopOf="@+id/et_registration_therapistage"
-        app:layout_constraintStart_toStartOf="@+id/et_registration_therapistage"
-        app:layout_constraintTop_toBottomOf="@+id/tvbtn_registration_register" />
-
-    <EditText
-        android:id="@+id/et_registration_therapistlocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginBottom="1dp"
-        android:background="@drawable/rounded_edittext_background"
-        android:ems="10"
-        android:hint="Therapist Location"
-        android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/et_registration_therapistprofession"
-        app:layout_constraintStart_toStartOf="@+id/et_registration_therapistprofession"
-        app:layout_constraintTop_toBottomOf="@+id/et_registration_therapistgender" />
+    android:background="@drawable/coloredbg"
+    tools:context=".UserRegistration"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="-38dp">
 
     <EditText
         android:id="@+id/et_registration_therapistprofession"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="23dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="84dp"
         android:background="@drawable/rounded_edittext_background"
         android:ems="10"
         android:hint="Therapist Profession"
         android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/tvbtn_registration_cancelregister"
-        app:layout_constraintStart_toStartOf="@+id/et_registration_therapistgender"
+        app:layout_constraintBottom_toTopOf="@+id/tvbtn_registration_register"
+        app:layout_constraintEnd_toEndOf="@+id/et_registration_therapistlocation"
         app:layout_constraintTop_toBottomOf="@+id/et_registration_therapistlocation" />
 
     <EditText
@@ -71,13 +36,51 @@
         app:layout_constraintStart_toStartOf="@+id/et_registration_therapistage"
         app:layout_constraintTop_toBottomOf="@+id/et_registration_therapistage" />
 
+    <Switch
+        android:id="@+id/sw_registration_istherapist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="Are you a therapist?"
+        app:layout_constraintBottom_toTopOf="@+id/et_registration_therapistage"
+        app:layout_constraintStart_toStartOf="@+id/et_registration_therapistage"
+        app:layout_constraintTop_toBottomOf="@+id/et_registration_password" />
+
+    <EditText
+        android:id="@+id/et_registration_therapistlocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginBottom="1dp"
+        android:background="@drawable/rounded_edittext_background"
+        android:ems="10"
+        android:hint="Therapist Location"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/et_registration_therapistprofession"
+        app:layout_constraintStart_toStartOf="@+id/et_registration_therapistgender"
+        app:layout_constraintTop_toBottomOf="@+id/et_registration_therapistgender" />
+
+    <EditText
+        android:id="@+id/et_registration_therapistage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="1dp"
+        android:background="@drawable/rounded_edittext_background"
+        android:ems="10"
+        android:hint="Therapist Age"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/et_registration_therapistgender"
+        app:layout_constraintStart_toStartOf="@+id/et_registration_password"
+        app:layout_constraintTop_toBottomOf="@+id/sw_registration_istherapist" />
+
     <TextView
         android:id="@+id/tvbtn_registration_register"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="12dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="61dp"
+        android:layout_marginEnd="61dp"
+        android:layout_marginBottom="13dp"
         android:background="@drawable/rounded_button_background"
         android:text="SIGN UP"
         android:textAlignment="center"
@@ -85,55 +88,43 @@
         android:textColor="#5FD8FF"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/sw_registration_istherapist"
+        app:layout_constraintBottom_toTopOf="@+id/tvbtn_registration_cancelregister"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_registration_password" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
-        android:text="Full name"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/et_registration_fullname"
-        app:layout_constraintStart_toStartOf="@+id/et_registration_fullname"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/et_registration_therapistprofession" />
 
     <TextView
         android:id="@+id/tvbtn_registration_cancelregister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="2dp"
+        android:layout_marginEnd="41dp"
         android:layout_marginBottom="16dp"
         android:text="Already have an account? Sign in"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/et_registration_therapistprofession"
-        app:layout_constraintTop_toBottomOf="@+id/et_registration_therapistprofession" />
+        app:layout_constraintEnd_toEndOf="@+id/tvbtn_registration_register"
+        app:layout_constraintTop_toBottomOf="@+id/tvbtn_registration_register" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="155dp"
-        android:layout_marginBottom="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="18dp"
         android:text="SIGN UP"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
         android:id="@+id/et_registration_fullname"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="62dp"
-        android:layout_marginEnd="62dp"
-        android:layout_marginBottom="1dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/rounded_edittext_background"
         android:ems="10"
         android:inputType="text"
@@ -143,13 +134,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Full name"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/et_registration_fullname"
+        app:layout_constraintStart_toStartOf="@+id/et_registration_fullname"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
     <EditText
         android:id="@+id/et_registration_username"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginEnd="60dp"
-        android:layout_marginBottom="3dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/rounded_edittext_background"
         android:ems="10"
         android:inputType="text"
@@ -158,17 +160,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="Password"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/et_registration_password"
-        app:layout_constraintStart_toStartOf="@+id/et_registration_username"
-        app:layout_constraintTop_toBottomOf="@+id/et_registration_username" />
 
     <TextView
         android:id="@+id/textView3"
@@ -185,17 +176,40 @@
     <EditText
         android:id="@+id/et_registration_password"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginEnd="60dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="33dp"
         android:background="@drawable/rounded_edittext_background"
         android:ems="10"
         android:inputType="textPassword"
         android:textColor="#5FD8FF"
-        app:layout_constraintBottom_toTopOf="@+id/tvbtn_registration_register"
+        app:layout_constraintBottom_toTopOf="@+id/sw_registration_istherapist"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:text="Password"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/et_registration_password"
+        app:layout_constraintStart_toStartOf="@+id/et_registration_password"
+        app:layout_constraintTop_toBottomOf="@+id/et_registration_username" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="149dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

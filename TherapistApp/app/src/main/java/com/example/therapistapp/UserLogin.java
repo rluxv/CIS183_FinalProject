@@ -72,9 +72,11 @@ public class UserLogin extends AppCompatActivity
         String password = et_login_password.getText().toString();
         if(db.usernameExists(username))
         {
+            Log.d("dbusernameexists", "yes");
             if(db.passwordMatches(username, password))
             {
                 Log.d("Login Success", "Successful Login");
+                Session.user = db.getUser(username);
                 Session.username = username;
                 Session.fullname = db.getFullName(username);
                 startActivity(int_homepage);
