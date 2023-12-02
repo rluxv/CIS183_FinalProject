@@ -6,4 +6,5 @@ public class Session
     static String fullname;
     static User user;
     static String therapyTypeToQuery;
+    static Therapist therapistBeingViewed;
 }

@@ -2,10 +2,12 @@ package com.example.therapistapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Debug;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,6 +25,7 @@ public class FindTherapist extends AppCompatActivity
     ArrayList<Therapist> therapistArrayList;
     TherapistAdapter adapter;
     DatabaseHelper database;
+    Intent int_viewtherapistactivity;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -40,8 +43,10 @@ public class FindTherapist extends AppCompatActivity
         }
         adapter = new TherapistAdapter(this, therapistArrayList);
         lv_choosetherapist.setAdapter(adapter);
+        int_viewtherapistactivity = new Intent(FindTherapist.this, ViewTherapistActivity.class);
 
         btn_findtherapst_cancelPressEvent();
+        listViewPressEvent();
     }
 
     public void btn_findtherapst_cancelPressEvent()
@@ -53,6 +58,19 @@ public class FindTherapist extends AppCompatActivity
             {
                 finish();
                 Session.therapyTypeToQuery = null;
+            }
+        });
+    }
+
+    public void listViewPressEvent()
+    {
+        lv_choosetherapist.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+            {
+                Session.therapistBeingViewed = therapistArrayList.get(i);
+                startActivity(int_viewtherapistactivity);
             }
         });
     }
