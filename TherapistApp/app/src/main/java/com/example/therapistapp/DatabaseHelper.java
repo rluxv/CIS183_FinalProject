@@ -100,6 +100,34 @@ public class DatabaseHelper extends SQLiteOpenHelper
         sqLiteDatabase.close();
     }
 
+    @SuppressLint("Range")
+    public ArrayList<Therapist> getTherapistsByProfession(String profession)
+    {
+        ArrayList<Therapist> therapistList = new ArrayList<Therapist>();
+        String selectQuery = "SELECT * FROM " + THERAPIST_TABLE_NAME + ";";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst())
+        {
+            do
+            {
+                if(cursor.getString(cursor.getColumnIndex("profession")).equalsIgnoreCase(profession))
+                {
+                    Therapist therapist = new Therapist(getUser(cursor.getString(cursor.getColumnIndex("username"))),
+                            cursor.getString(cursor.getColumnIndex("gender")),
+                            cursor.getInt(cursor.getColumnIndex("age")),
+                            cursor.getString(cursor.getColumnIndex("profession")),
+                            cursor.getString(cursor.getColumnIndex("location")));
+                    therapistList.add(therapist);
+                }
+            }
+            while(cursor.moveToNext());
+        }
+        db.close();
+
+        return therapistList;
+    }
+
     public void createNewTherapist(Therapist therapist)
     {
         String sqlExecStatement = "INSERT INTO " + THERAPIST_TABLE_NAME + " VALUES('USR','GENDER','AGE','PROFESSION','LOCATION');"
@@ -154,6 +182,17 @@ public class DatabaseHelper extends SQLiteOpenHelper
             while(cursor.moveToNext());
         }
         db.close();
+
+        // remove duplicates
+        for(int i = 0; i < list.size(); i++) {
+            for(int j = i + 1; j < list.size(); j++) {
+                if(list.get(i).equalsIgnoreCase(list.get(j))){
+                    list.remove(j);
+                    j--;
+                }
+            }
+        }
+
 
         return list;
     }

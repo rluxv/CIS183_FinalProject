@@ -2,8 +2,10 @@ package com.example.therapistapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ public class ChooseTherapyActivity extends AppCompatActivity
     ArrayList<String> therapyTypeList;
     DatabaseHelper database;
     TherapyTypeAdapter adapter;
+    Intent int_choosetherapist;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -28,7 +31,9 @@ public class ChooseTherapyActivity extends AppCompatActivity
         therapyTypeList = database.getTherapyTypes();
         adapter = new TherapyTypeAdapter(this, therapyTypeList);
         lv_choosetherapy.setAdapter(adapter);
+        int_choosetherapist = new Intent(ChooseTherapyActivity.this, FindTherapist.class);
         cancelButtonEvent();
+        listViewClickEvent();
     }
 
     public void cancelButtonEvent()
@@ -39,6 +44,19 @@ public class ChooseTherapyActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 finish();
+            }
+        });
+    }
+
+    public void listViewClickEvent()
+    {
+        lv_choosetherapy.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+            {
+                Session.therapyTypeToQuery = therapyTypeList.get(i);
+                startActivity(int_choosetherapist);
             }
         });
     }
