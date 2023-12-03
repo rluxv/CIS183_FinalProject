@@ -16,7 +16,7 @@ public class ViewTherapistActivity extends AppCompatActivity
 {
 
     TextView tv_viewtherapist_fullname;
-    TextView btn_viewtherapist_review, btn_viewtherapist_goback;
+    TextView btn_viewtherapist_review, btn_viewtherapist_goback, tv_viewtherapist_profession, tv_viewtherapist_location, tv_viewtherapist_genderage;
 
     ListView lv_reviews;
     Intent int_leavereview;
@@ -34,6 +34,9 @@ public class ViewTherapistActivity extends AppCompatActivity
         tv_viewtherapist_fullname.setText(Session.therapistBeingViewed.getUser().getFullName());
         btn_viewtherapist_review = findViewById(R.id.btn_viewtherapist_review);
         btn_viewtherapist_goback = findViewById(R.id.btn_viewtherapist_goback);
+        tv_viewtherapist_profession = findViewById(R.id.tv_viewtherapist_profession);
+        tv_viewtherapist_location = findViewById(R.id.tv_viewtherapist_location);
+        tv_viewtherapist_genderage = findViewById(R.id.tv_viewtherapist_genderage);
         lv_reviews = findViewById(R.id.lv_reviews);
         reviewTherapistButtonEvent();
         goBackButton();
@@ -42,6 +45,9 @@ public class ViewTherapistActivity extends AppCompatActivity
         reviewArrayList = database.getReviews(Session.therapistBeingViewed);
         adapter = new ReviewListAdapter(this, reviewArrayList);
         lv_reviews.setAdapter(adapter);
+        tv_viewtherapist_location.setText(Session.therapistBeingViewed.getLocation());
+        tv_viewtherapist_profession.setText(Session.therapistBeingViewed.getProfession() + " Therapy");
+        tv_viewtherapist_genderage.setText(Session.therapistBeingViewed.getGender() + ", " + Session.therapistBeingViewed.getAge());
     }
 
     @Override

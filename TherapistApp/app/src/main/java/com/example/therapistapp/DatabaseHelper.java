@@ -209,7 +209,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
             {
                String comments = cursor.getString(cursor.getColumnIndex("comments"));
                int rating = cursor.getInt(cursor.getColumnIndex("rating"));
-               String reviewer = cursor.getString(cursor.getColumnIndex("reviewerusername"));
+               String reviewer = getUser(cursor.getString(cursor.getColumnIndex("reviewerusername"))).getFullName();
                Review r = new Review(comments, rating, reviewer);
                reviews.add(r);
             }
