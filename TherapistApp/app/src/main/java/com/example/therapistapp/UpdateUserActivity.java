@@ -119,6 +119,7 @@ public class UpdateUserActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+                database.deleteReviews(Session.user);
                 database.deleteUser(Session.user);
                 Session.user = null;
                 Session.username = null;

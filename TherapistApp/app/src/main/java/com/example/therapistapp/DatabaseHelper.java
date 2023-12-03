@@ -101,6 +101,19 @@ public class DatabaseHelper extends SQLiteOpenHelper
         sqLiteDatabase.close();
     }
 
+    // =================================================================
+    // This functions will remove reviews from a user or therapist when they are deleted as they will no longer be needed
+    public void deleteReviews(User user)
+    {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.execSQL("DELETE FROM " + REVIEWS_TABLE_NAME + " WHERE reviewerusername = '" + user.getUsername() + "';");
+        if(user.isTherapist())
+        {
+            sqLiteDatabase.execSQL("DELETE FROM " + REVIEWS_TABLE_NAME + " WHERE therapistusername = '" + user.getUsername() + "';");
+        }
+        sqLiteDatabase.close();
+    }
+    // =================================================================
     @SuppressLint("Range")
     public ArrayList<Therapist> getTherapistsByProfession(String profession)
     {
