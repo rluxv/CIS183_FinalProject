@@ -133,6 +133,41 @@ public class UserRegistration extends AppCompatActivity
             et_registration_fullname.setError("Field cannot be left blank.");
             returnStatement = false;
         }
+        if(registeringTherapist)
+        {
+            if(et_registration_therapistage.getText().toString().equals(""))
+            {
+                et_registration_therapistage.setError("Field cannot be left blank.");
+                returnStatement = false;
+            }
+            if(et_registration_therapistgender.getText().toString().equals(""))
+            {
+                et_registration_therapistgender.setError("Field cannot be left blank.");
+                returnStatement = false;
+            }
+            if(et_registration_therapistlocation.getText().toString().equals(""))
+            {
+                et_registration_therapistlocation.setError("Field cannot be left blank.");
+                returnStatement = false;
+            }
+            if(et_registration_therapistprofession.getText().toString().equals(""))
+            {
+                et_registration_therapistprofession.setError("Field cannot be left blank.");
+                returnStatement = false;
+            }
+
+
+            String age = et_registration_therapistage.getText().toString();
+            for(int i = 0; i < age.length(); i++)
+            {
+                if(!Character.isDigit(age.charAt(i)))
+                {
+                    et_registration_therapistage.setError("Please put a valid age.");
+                    return false;
+                }
+            }
+        }
+
         return returnStatement;
     }
 

@@ -41,7 +41,7 @@ public class FindTherapist extends AppCompatActivity
         {
             Log.d("Therapist", therapistArrayList.get(i).getUser().getFullName());
         }
-        adapter = new TherapistAdapter(this, therapistArrayList);
+        adapter = new TherapistAdapter(this, therapistArrayList, database);
         lv_choosetherapist.setAdapter(adapter);
         int_viewtherapistactivity = new Intent(FindTherapist.this, ViewTherapistActivity.class);
 

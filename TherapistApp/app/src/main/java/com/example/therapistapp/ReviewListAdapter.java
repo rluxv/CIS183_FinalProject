@@ -8,31 +8,31 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
-public class TherapistAdapter extends BaseAdapter
+public class ReviewListAdapter extends BaseAdapter
 {
 
-    ArrayList<Therapist> therapyTypeList;
+    ArrayList<Review> reviewsList;
     Context context;
-    DatabaseHelper database;
-    public TherapistAdapter(Context c, ArrayList<Therapist> therList, DatabaseHelper db)
+    public ReviewListAdapter(Context c, ArrayList<Review> revList)
     {
-        therapyTypeList = therList;
+        reviewsList = revList;
         context = c;
-        database = db;
     }
 
     @Override
     public int getCount()
     {
-        return therapyTypeList.size();
+        return reviewsList.size();
     }
 
     @Override
     public Object getItem(int i)
     {
-        return therapyTypeList.get(i);
+        return reviewsList.get(i);
     }
 
     @Override
@@ -47,13 +47,16 @@ public class TherapistAdapter extends BaseAdapter
         if(view == null)
         {
             LayoutInflater mInflator = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            view = mInflator.inflate(R.layout.therapist_cell, null);
+            view = mInflator.inflate(R.layout.review_cell, null);
         }
-        TextView therapistname = view.findViewById(R.id.tv_therapistcell_name);
-        TextView rating = view.findViewById(R.id.tv_therapistcell_rating);
-        float ratingNum = database.getRating(therapyTypeList.get(i));
-        rating.setText(ratingNum + "/5");
-        therapistname.setText(therapyTypeList.get(i).getUser().getFullName());
+
+        TextView reviewer = view.findViewById(R.id.tv_reviewcell_reviewer);
+        TextView rating = view.findViewById(R.id.tv_reviewcell_rating);
+        TextView comments = view.findViewById(R.id.tv_reviewcell_comments);
+
+        reviewer.setText("Reviewed by " + reviewsList.get(i).getReviewer());
+        rating.setText("Rating: " + reviewsList.get(i).getRating() + "/5");
+        comments.setText("Comments: " + reviewsList.get(i).getComments());
 
         return view;
     }

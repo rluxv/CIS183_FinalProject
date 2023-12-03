@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.media.Rating;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -21,7 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
     public DatabaseHelper(Context context)
     {
-        super(context, DATABASE_NAME, null, 6);
+        super(context, DATABASE_NAME, null, 7);
     }
 
     @Override
@@ -31,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         //istherapist 0 = false, 1 = true
         sqLiteDatabase.execSQL("CREATE TABLE " + USERS_TABLE_NAME + " (username PRIMARY KEY NOT NULL, fullname TEXT, password TEXT, istherapist INTEGER NOT NULL);");
         sqLiteDatabase.execSQL("CREATE TABLE " + THERAPIST_TABLE_NAME + " (username PRIMARY KEY NOT NULL, gender TEXT, age INTEGER, profession TEXT, location TEXT);");
-        sqLiteDatabase.execSQL("CREATE TABLE " + REVIEWS_TABLE_NAME + " (therapistusername PRIMARY KEY NOT NULL, reviewerusername TEXT, rating INTEGER, comments TEXT);");
+        sqLiteDatabase.execSQL("CREATE TABLE " + REVIEWS_TABLE_NAME + " (therapistusername NOT NULL, reviewerusername TEXT NOT NULL, rating INTEGER NOT NULL, comments TEXT NOT NULL);");
         sqLiteDatabase.execSQL("CREATE TABLE " + PROFESSION_TABLE_NAME + " (professionname PRIMARY KEY NOT NULL);");
 
         //create a dummy user
@@ -164,6 +165,60 @@ public class DatabaseHelper extends SQLiteOpenHelper
         }
         db.close();
         return false;
+    }
+
+    public void saveReview(User user, Therapist therapist, String comments, int rating)
+    {
+        //        sqLiteDatabase.execSQL("CREATE TABLE " + REVIEWS_TABLE_NAME + " (therapistusername PRIMARY KEY NOT NULL, reviewerusername TEXT, rating INTEGER, comments TEXT);");
+
+        String sqlExecStatement = "INSERT INTO " + REVIEWS_TABLE_NAME + " VALUES('THERAPIST','REVIEWER','RATING','COMMENTS');"
+                .replace("THERAPIST", therapist.getUser().getUsername())
+                .replace("REVIEWER", user.getUsername())
+                .replace("RATING", rating + "")
+                .replace("COMMENTS",  comments);
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.execSQL(sqlExecStatement);
+        sqLiteDatabase.close();
+
+    }
+    @SuppressLint("Range")
+    public ArrayList<Review> getReviews(Therapist therapist)
+    {
+        ArrayList<Review> reviews = new ArrayList<Review>();
+        String uname = therapist.getUser().getUsername();
+        String selectQuery = "SELECT * FROM " + REVIEWS_TABLE_NAME + " WHERE therapistusername = '" + uname + "';";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if(cursor.moveToFirst())
+        {
+            do
+            {
+               String comments = cursor.getString(cursor.getColumnIndex("comments"));
+               int rating = cursor.getInt(cursor.getColumnIndex("rating"));
+               String reviewer = cursor.getString(cursor.getColumnIndex("reviewerusername"));
+               Review r = new Review(comments, rating, reviewer);
+               reviews.add(r);
+            }
+            while(cursor.moveToNext());
+        }
+        db.close();
+
+        return reviews;
+    }
+
+    public float getRating(Therapist therapist)
+    {
+        float rating = 0;
+        ArrayList<Review> ratings = getReviews(therapist);
+        for(int i = 0; i < ratings.size(); i++)
+        {
+            rating += (float) ratings.get(i).getRating();
+        }
+
+        rating = rating / 5;
+
+        return rating;
     }
 
     @SuppressLint("Range")
