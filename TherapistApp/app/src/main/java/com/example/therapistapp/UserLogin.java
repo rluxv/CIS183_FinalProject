@@ -81,6 +81,10 @@ public class UserLogin extends AppCompatActivity
                 Session.fullname = db.getFullName(username);
                 startActivity(int_homepage);
             }
+            else
+            {
+                et_login_password.setError("Incorrect password");
+            }
         }
         else
         {
